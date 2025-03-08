@@ -1,25 +1,42 @@
-# Program #3: US_Population
-def main():
-    # Have the user input (using a loop) various information that contains three pieces of data: 
-    # year, name of state, and population.  
-    # Store all of this information in a list of lists.  For example it might be stored like this:
+#Ben Krehbiel
+#3/7/2025
+#population, undefined
+
+def population_statistics():
+    pop_data = []  
+
     
-    # [[2010, "Maine", 1987435], [2010,"Minnesota",6873202], [2011, "Iowa", 3421988]]
-    all_entered_values = []
+    while True:
+        try:
+            year = int(input("Enter year (or -1 to stop): "))
+            if year == -1:
+                break
 
-    # Now have the user enter a year. 
+            state = input("Enter state name: ").strip()
+            population = int(input("Enter population: "))
+
+            if population < 0:
+                print("This isn't the death count.")
+            else:
+                pop_data.append([year, state, population])
+
+        except ValueError:
+            print("Invalid input")
+
     
-    # The program will add the populations from all states in the list of list for that year only.
-    # Pass the list and year to the sum_population_for_year
+    get_year = int(input("\nEnter a year to see total population: "))
+    sort_data = [entry for entry in pop_data if entry[0] == get_year]
 
-def sum_population_for_year(all_entered_values, year_to_sum):
-    # Loop through and sum the populations for the appropriate year. 
-    # e.g. for the list on line 7 the total would be 8,860,637 if the user enterd 2010 for the year to sum,
-    # or 3,421,988 if they enterd 2011 for the year to sum.
+    if not sort_data:
+        print(f"No data found for {get_year}.")
+        return
 
-    # print the totalled population
+    
+    total_population = sum(entry[2] for entry in sort_data)
+
+    
+    print(f"\nTotal population for {get_year}: {total_population:,}")
 
 
-# Call the main function.
-if __name__ == '__main__':
-    main()
+
+population_statistics()
